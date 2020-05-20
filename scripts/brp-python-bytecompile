@@ -1,6 +1,21 @@
 #!/bin/bash
 errors_terminate=$2
+
+# If you have *.py files outside of the /usr/lib(64)?/pythonX.Y/
+# directories and you require those files to be byte compiled
+# (e.g. it’s an importable Python module) you MUST compile them
+# explicitly using the %py_byte_compile macro. Note that not all
+# Python files are importable Python modules; when in doubt, grep the
+# sources for the appropriate import statement.
+#
+# Therefore $1 ($default_python) is not needed and is invoked with ""
+# by default.  $default_python stays in the arguments for backward
+# compatibility and so does $extra, for the following check:
 extra=$3
+if [ 0$extra -eq 1 ]; then
+    echo -e "%_python_bytecompile_extra is discontinued, use %py_byte_compile instead.\n" >/dev/stderr
+    exit 1
+fi
 
 # If using normal root, avoid changing anything.
 if [ -z "$RPM_BUILD_ROOT" ] || [ "$RPM_BUILD_ROOT" = "/" ]; then
@@ -82,35 +97,3 @@ do
 		exit 1
 	fi
 done
-
-
-# Handle other locations in the filesystem using the default python implementation
-# if extra is set to 0, don't do this
-if [ 0$extra -eq 0 ]; then
-	exit 0
-fi
-
-# If we don't have a default python interpreter, we cannot proceed
-default_python=${1:-/usr/bin/python}
-if [ ! -x "$default_python" ]; then
-	exit 0
-fi
-
-# Figure out if there are files to be bytecompiled with the default_python at all
-# this prevents unnecessary default_python invocation
-find "$RPM_BUILD_ROOT" -type f -name "*.py" | grep -Ev "/bin/|/sbin/|/usr/lib(64)?/python[0-9]\.[0-9]|/usr/share/doc" || exit 0
-
-# Generate normal (.pyc) byte-compiled files.
-python_bytecompile "" $default_python "/bin/|/sbin/|/usr/lib(64)?/python[0-9]\.[0-9]|/usr/share/doc" "$RPM_BUILD_ROOT" "$depth" "/"
-if [ $? -ne 0 ] && [ 0$errors_terminate -ne 0 ]; then
-	# One or more of the files had a syntax error
-	exit 1
-fi
-
-# Generate optimized (.pyo) byte-compiled files.
-python_bytecompile "-O" $default_python "/bin/|/sbin/|/usr/lib(64)?/python[0-9]\.[0-9]|/usr/share/doc" "$RPM_BUILD_ROOT" "$depth" "/"
-if [ $? -ne 0 ] && [ 0$errors_terminate -ne 0 ]; then
-	# One or more of the files had a syntax error
-	exit 1
-fi
-exit 0
