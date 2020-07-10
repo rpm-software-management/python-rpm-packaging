@@ -41,18 +41,30 @@ PYTHONDISTDEPS_PATH = Path(__file__).parent / '..' / 'scripts' / 'pythondistdeps
 TEST_DATA_PATH = Path(__file__).parent / 'data' / 'scripts_pythondistdeps'
 
 
-def run_pythondistdeps(provides_params, requires_params, dist_egg_info_path):
+def run_pythondistdeps(provides_params, requires_params, dist_egg_info_path, expect_failure=False):
     """Runs pythondistdeps.py on `dits_egg_info_path` with given
     provides and requires parameters and returns a dict with generated provides and requires"""
     info_path = TEST_DATA_PATH / dist_egg_info_path
     files = '\n'.join(map(str, info_path.iterdir()))
 
-    provides = subprocess.check_output((sys.executable, PYTHONDISTDEPS_PATH, *shlex.split(provides_params)),
-            input=files, encoding="utf-8")
-    requires = subprocess.check_output((sys.executable, PYTHONDISTDEPS_PATH, *shlex.split(requires_params)),
-            input=files, encoding="utf-8")
+    provides = subprocess.run((sys.executable, PYTHONDISTDEPS_PATH, *shlex.split(provides_params)),
+            input=files, capture_output=True, check=False, encoding="utf-8")
+    requires = subprocess.run((sys.executable, PYTHONDISTDEPS_PATH, *shlex.split(requires_params)),
+            input=files, capture_output=True, check=False, encoding="utf-8")
 
-    return {"provides": provides.strip(), "requires": requires.strip()}
+    if expect_failure:
+        if provides.returncode == 0 or requires.returncode == 0:
+            raise RuntimeError(f"pythondistdeps.py did not exit with a non-zero code as expected.\n"
+                               f"Used parameters: ({provides_params}, {requires_params}, {dist_egg_info_path})")
+        stdout = {"provides": provides.stdout.strip(), "requires": requires.stdout.strip()}
+        stderr = {"provides": provides.stderr.strip(), "requires": requires.stderr.strip()}
+        return {"stderr": stderr, "stdout": stdout}
+
+    else:
+        if provides.returncode != 0 or requires.returncode != 0:
+            raise RuntimeError(f"pythondistdeps.py unexpectedly exited with a non-zero code.\n"
+                               f"Used parameters: ({provides_params}, {requires_params}, {dist_egg_info_path})")
+        return {"provides": provides.stdout.strip(), "requires": requires.stdout.strip()}
 
 
 def load_test_data():
@@ -212,7 +224,8 @@ def fixture_check_and_install_test_data():
 def test_pythondistdeps(provides_params, requires_params, dist_egg_info_path, expected):
     """Runs pythondistdeps with the given parameters and dist-info/egg-info
     path, compares the results with the expected results"""
-    assert expected == run_pythondistdeps(provides_params, requires_params, dist_egg_info_path)
+    expect_failure = "stderr" in expected
+    assert expected == run_pythondistdeps(provides_params, requires_params, dist_egg_info_path, expect_failure)
 
 
 if __name__ == "__main__":
@@ -235,8 +248,10 @@ if __name__ == "__main__":
     for provides_params, requires_params, dist_egg_info_path, expected in generate_test_cases(test_data):
         # Print a dot to stderr for each test run to keep user informed about progress
         print(".", end="", flush=True, file=sys.stderr)
+
+        expect_failure = "stderr" in test_data[requires_params][provides_params][dist_egg_info_path]
         test_data[requires_params][provides_params][dist_egg_info_path] = \
-            run_pythondistdeps(provides_params, requires_params, dist_egg_info_path)
+            run_pythondistdeps(provides_params, requires_params, dist_egg_info_path, expect_failure)
 
     print(yaml.dump(test_data, indent=4))
 

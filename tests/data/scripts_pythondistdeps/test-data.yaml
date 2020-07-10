@@ -1255,6 +1255,19 @@
                 python3.9dist(coverage)
                 python3.9dist(nose)
                 python3.9dist(zope-testing)
+--requires --normalized-names-format pep503 --require-extras-subpackages --package-name python3-zope-component+missing:
+    --provides --majorver-provides --normalized-names-format pep503 --package-name python3-zope-component+missing:
+        usr/lib/python3.9/site-packages/zope.component-4.3.0-py3.9.egg-info:
+            stderr:
+                provides: |-
+                    Error: The package name contains an extras name `missing` that was not found in the metadata.
+                    Check if the extras were removed from the project. If so, consider removing the subpackage and obsoleting it from another.
+                requires: |-
+                    Error: The package name contains an extras name `missing` that was not found in the metadata.
+                    Check if the extras were removed from the project. If so, consider removing the subpackage and obsoleting it from another.
+            stdout:
+                provides: '*** PYTHON_EXTRAS_NOT_FOUND_ERROR___SEE_STDERR ***'
+                requires: '*** PYTHON_EXTRAS_NOT_FOUND_ERROR___SEE_STDERR ***'
 --requires --normalized-names-format pep503 --require-extras-subpackages --package-name python3-zope-component+testing:
     --provides --majorver-provides --normalized-names-format pep503 --package-name python3-zope-component+testing:
         usr/lib/python3.9/site-packages/zope.component-4.3.0-py3.9.egg-info:
