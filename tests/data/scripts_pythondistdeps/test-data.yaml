@@ -96,6 +96,8 @@
                 python3.9dist(hugo5) = 11.1^post3
                 python3.9dist(pyparsing0)
                 ((python3.9dist(pyparsing1) < 2.0.4 or python3.9dist(pyparsing1) > 2.0.4) with (python3.9dist(pyparsing1) < 2.1.2 or python3.9dist(pyparsing1) > 2.1.2) with (python3.9dist(pyparsing1) < 2.1.6 or python3.9dist(pyparsing1) > 2.1.6) with python3.9dist(pyparsing1) >= 2.0.1)
+                python3.9dist(test-multiple-underscores) = 1
+                python3.9dist(test-underscores) = 1
         usr/lib/python3.9/site-packages/taskotron_python_versions-0.1.dev6.dist-info:
             provides: python3.9dist(taskotron-python-versions) = 0.1~~dev6
             requires: |-
