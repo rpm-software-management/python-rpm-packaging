@@ -110,7 +110,7 @@ export PYTHONHASHSEED=0
 shopt -s nullglob
 for python_libdir in `find "$RPM_BUILD_ROOT" -type d|grep -E "/usr/lib(64)?/python[0-9]\.[0-9]+$"`;
 do
-	python_binary=/usr/bin/$(basename $python_libdir)
+	python_binary=$(basename $python_libdir)
 	real_libdir=${python_libdir/$RPM_BUILD_ROOT/}
 	echo "Bytecompiling .py files below $python_libdir using $python_binary"
 
