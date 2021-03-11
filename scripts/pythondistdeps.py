@@ -77,7 +77,7 @@ class Distribution(PathDistribution):
         self.legacy_normalized_name = legacy_normalize_name(self.name)
         self.requirements = [Requirement(r) for r in self.requires or []]
         self.extras = [
-            v for k, v in self.metadata.items() if k == 'Provides-Extra']
+            v.lower() for k, v in self.metadata.items() if k == 'Provides-Extra']
         self.py_version = self._parse_py_version(path)
 
     # `name` is defined as a property exactly like this in Python 3.10 in the
@@ -316,7 +316,7 @@ if __name__ == "__main__":
         # and pluses in the middle can be easily replaced with dashes.
         # Python extras names don't contain pluses according to PEP 508.
         package_name_parts = args.package_name.rpartition('+')
-        extras_subpackage = package_name_parts[2] or None
+        extras_subpackage = package_name_parts[2].lower() or None
 
     for f in (args.files or stdin.readlines()):
         f = f.strip()
@@ -457,7 +457,7 @@ if __name__ == "__main__":
                     if args.require_extras_subpackages and dep.extras:
                         # A dependency can have more than one extras,
                         # i.e. foo[bar,baz], so let's go through all of them
-                        extras_suffixes += [f"[{e}]" for e in dep.extras]
+                        extras_suffixes += [f"[{e.lower()}]" for e in dep.extras]
 
                     for extras_suffix in extras_suffixes:
                         if normalized_names_require_pep503:
