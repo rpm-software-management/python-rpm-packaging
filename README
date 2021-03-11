@@ -3,12 +3,13 @@
 ## Running tests
 
 Requirements:
-# - Python >= 3.8
-# - pip >= 20.0.1
-# - setuptools
-# - pytest
-# - pyyaml
-# - wheel
+- Python >= 3.8
+- pip >= 20.0.1
+- setuptools
+- pytest
+- pyyaml
+- wheel
+- poetry (due to [bug](https://github.com/pypa/pip/issues/9701))
 
 ```
 $ python3 -m pytest -vvv

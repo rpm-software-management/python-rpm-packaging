@@ -21,6 +21,26 @@ from warnings import warn
 
 from packaging.requirements import Requirement as Requirement_
 from packaging.version import parse
+import packaging.markers
+
+# Monkey patching packaging.markers to handle extras names in a
+# case-insensitive manner:
+#   pip considers dnspython[DNSSEC] and dnspython[dnssec] to be equal, but
+#   packaging markers treat extras in a case-sensitive manner. To solve this
+#   issue, we introduce a comparison operator that compares case-insensitively
+#   if both sides of the comparison are strings. And then we inject this
+#   operator into packaging.markers to be used when comparing names of extras.
+# Fedora BZ: https://bugzilla.redhat.com/show_bug.cgi?id=1936875
+# Upstream issue: https://discuss.python.org/t/what-extras-names-are-treated-as-equal-and-why/7614
+# - After it's established upstream what is the canonical form of an extras
+#   name, we plan to open an issue with packaging to hopefully solve this
+#   there without having to resort to monkeypatching.
+def str_lower_eq(a, b):
+    if isinstance(a, str) and isinstance(b, str):
+        return a.lower() == b.lower()
+    else:
+        return a == b
+packaging.markers._operators["=="] = str_lower_eq
 
 try:
     from importlib.metadata import PathDistribution

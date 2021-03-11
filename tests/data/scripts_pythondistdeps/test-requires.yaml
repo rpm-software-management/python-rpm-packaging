@@ -95,3 +95,8 @@ fsleyes:
 taskotron-python-versions:
     wheel:
         '0.1.dev6': ['3.9']
+dnspython:
+    sdist:
+        '2.1.0': ['3.9']
+    wheel:
+        '2.1.0': ['3.9']
