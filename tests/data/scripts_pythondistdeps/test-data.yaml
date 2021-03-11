@@ -1,103 +1,5 @@
 --requires:
     --provides:
-        pyreq2rpm.tests-2020.04.07.024dab0-py3.9.egg-info:
-            provides: python3.9dist(pyreq2rpm.tests) = 2020.04.07.024dab0
-            requires: |-
-                python(abi) = 3.9
-                ((python3.9dist(babel) < 2 or python3.9dist(babel) > 2) with python3.9dist(babel) >= 1.3)
-                python3.9dist(fedora-python-nb2plots) = 0
-                (python3.9dist(foobar0) >= 2.4.8 with python3.9dist(foobar0) < 2.5)
-                (python3.9dist(foobar1) >= 2.4.8 with python3.9dist(foobar1) < 2.4.9)
-                (python3.9dist(foobar10) >= 2^post1 with python3.9dist(foobar10) < 3)
-                python3.9dist(foobar11) = 2.4.8
-                python3.9dist(foobar12) = 2.4.8
-                python3.9dist(foobar13) = 2.4.8.1
-                (python3.9dist(foobar14) >= 2.4.8 with python3.9dist(foobar14) < 2.4.9)
-                python3.9dist(foobar15) = 2
-                python3.9dist(foobar16) = 2
-                (python3.9dist(foobar17) >= 2 with python3.9dist(foobar17) < 3)
-                python3.9dist(foobar18) = 2.4.8~b5
-                python3.9dist(foobar19) = 2~b5
-                (python3.9dist(foobar2) >= 2.4.8.1 with python3.9dist(foobar2) < 2.4.9)
-                python3.9dist(foobar20) = 2.4.8^post1
-                python3.9dist(foobar21) = 2^post1
-                python3.9dist(foobar22) = 2.4.8
-                python3.9dist(foobar23) = 2.4.8
-                python3.9dist(foobar24) = 2.4.8.1
-                python3.9dist(foobar26) = 2
-                python3.9dist(foobar27) = 2
-                python3.9dist(foobar29) = 2.4.8~b5
-                python3.9dist(foobar30) = 2~b5
-                python3.9dist(foobar31) = 2.4.8^post1
-                python3.9dist(foobar32) = 2^post1
-                (python3.9dist(foobar33) < 2.4.8 or python3.9dist(foobar33) > 2.4.8)
-                (python3.9dist(foobar34) < 2.4.8 or python3.9dist(foobar34) > 2.4.8)
-                (python3.9dist(foobar35) < 2.4.8.1 or python3.9dist(foobar35) > 2.4.8.1)
-                (python3.9dist(foobar36) < 2.4.8 or python3.9dist(foobar36) > 2.4.9)
-                (python3.9dist(foobar37) < 2 or python3.9dist(foobar37) > 2)
-                (python3.9dist(foobar38) < 2 or python3.9dist(foobar38) > 2)
-                (python3.9dist(foobar39) < 2 or python3.9dist(foobar39) > 3)
-                (python3.9dist(foobar4) >= 2 with python3.9dist(foobar4) < 3)
-                (python3.9dist(foobar40) < 2.4.8~b5 or python3.9dist(foobar40) > 2.4.8~b5)
-                (python3.9dist(foobar41) < 2~b5 or python3.9dist(foobar41) > 2~b5)
-                (python3.9dist(foobar42) < 2.4.8^post1 or python3.9dist(foobar42) > 2.4.8^post1)
-                (python3.9dist(foobar43) < 2^post1 or python3.9dist(foobar43) > 2^post1)
-                python3.9dist(foobar44) <= 2.4.8
-                python3.9dist(foobar45) <= 2.4.8
-                python3.9dist(foobar46) <= 2.4.8.1
-                python3.9dist(foobar47) < 2.4.8
-                python3.9dist(foobar48) <= 2
-                python3.9dist(foobar49) <= 2
-                python3.9dist(foobar50) < 2
-                python3.9dist(foobar51) <= 2.4.8~b5
-                python3.9dist(foobar52) <= 2~b5
-                python3.9dist(foobar53) <= 2.4.8^post1
-                python3.9dist(foobar54) <= 2^post1
-                python3.9dist(foobar55) < 2.4.8
-                python3.9dist(foobar56) < 2.4.8
-                python3.9dist(foobar57) < 2.4.8.1
-                python3.9dist(foobar58) < 2.4.8
-                python3.9dist(foobar59) < 2
-                python3.9dist(foobar60) < 2
-                python3.9dist(foobar61) < 2
-                python3.9dist(foobar62) < 2.4.8~b5
-                python3.9dist(foobar63) < 2~b5
-                python3.9dist(foobar64) < 2.4.8^post1
-                python3.9dist(foobar65) < 2^post1
-                python3.9dist(foobar66) >= 2.4.8
-                python3.9dist(foobar67) >= 2.4.8
-                python3.9dist(foobar68) >= 2.4.8.1
-                python3.9dist(foobar69) >= 2.4.8
-                (python3.9dist(foobar7) >= 2.4.8~b5 with python3.9dist(foobar7) < 2.5)
-                python3.9dist(foobar70) >= 2
-                python3.9dist(foobar71) >= 2
-                python3.9dist(foobar72) >= 2
-                python3.9dist(foobar73) >= 2.4.8~b5
-                python3.9dist(foobar74) >= 2~b5
-                python3.9dist(foobar75) >= 2.4.8^post1
-                python3.9dist(foobar76) >= 2^post1
-                python3.9dist(foobar77) > 2.4.8
-                python3.9dist(foobar78) > 2.4.8
-                python3.9dist(foobar79) > 2.4.8.1
-                (python3.9dist(foobar8) >= 2~b5 with python3.9dist(foobar8) < 2.1)
-                python3.9dist(foobar80) >= 2.4.8
-                python3.9dist(foobar81) > 2
-                python3.9dist(foobar82) > 2
-                python3.9dist(foobar83) >= 2
-                python3.9dist(foobar84) > 2.4.8~b5
-                python3.9dist(foobar85) > 2~b5
-                python3.9dist(foobar86) > 2.4.8^post1
-                python3.9dist(foobar87) > 2^post1
-                (python3.9dist(foobar9) >= 2.4.8^post1 with python3.9dist(foobar9) < 2.5)
-                python3.9dist(hugo1) = 1~~dev7
-                python3.9dist(hugo2) <= 8~a4
-                (python3.9dist(hugo3) < 11.1.1~b14 or python3.9dist(hugo3) > 11.1.1~b14)
-                python3.9dist(hugo4) > 11~rc0
-                python3.9dist(hugo5) = 11.1^post3
-                python3.9dist(pyparsing0)
-                ((python3.9dist(pyparsing1) < 2.0.4 or python3.9dist(pyparsing1) > 2.0.4) with (python3.9dist(pyparsing1) < 2.1.2 or python3.9dist(pyparsing1) > 2.1.2) with (python3.9dist(pyparsing1) < 2.1.6 or python3.9dist(pyparsing1) > 2.1.6) with python3.9dist(pyparsing1) >= 2.0.1)
-                python3.9dist(test-multiple-underscores) = 1
-                python3.9dist(test-underscores) = 1
         usr/lib/python3.9/site-packages/taskotron_python_versions-0.1.dev6.dist-info:
             provides: python3.9dist(taskotron-python-versions) = 0.1~~dev6
             requires: |-
@@ -1257,6 +1159,106 @@
                 python3.9dist(coverage)
                 python3.9dist(nose)
                 python3.9dist(zope-testing)
+--requires:
+    --provides:
+        pyreq2rpm.tests-2020.04.07.024dab0-py3.9.egg-info:
+            provides: python3.9dist(pyreq2rpm.tests) = 2020.04.07.024dab0
+            requires: |-
+                python(abi) = 3.9
+                ((python3.9dist(babel) < 2 or python3.9dist(babel) > 2) with python3.9dist(babel) >= 1.3)
+                python3.9dist(fedora-python-nb2plots) = 0
+                (python3.9dist(foobar0) >= 2.4.8 with python3.9dist(foobar0) < 2.5)
+                (python3.9dist(foobar1) >= 2.4.8 with python3.9dist(foobar1) < 2.4.9)
+                (python3.9dist(foobar10) >= 2^post1 with python3.9dist(foobar10) < 3)
+                python3.9dist(foobar11) = 2.4.8
+                python3.9dist(foobar12) = 2.4.8
+                python3.9dist(foobar13) = 2.4.8.1
+                (python3.9dist(foobar14) >= 2.4.8 with python3.9dist(foobar14) < 2.4.9)
+                python3.9dist(foobar15) = 2
+                python3.9dist(foobar16) = 2
+                (python3.9dist(foobar17) >= 2 with python3.9dist(foobar17) < 3)
+                python3.9dist(foobar18) = 2.4.8~b5
+                python3.9dist(foobar19) = 2~b5
+                (python3.9dist(foobar2) >= 2.4.8.1 with python3.9dist(foobar2) < 2.4.9)
+                python3.9dist(foobar20) = 2.4.8^post1
+                python3.9dist(foobar21) = 2^post1
+                python3.9dist(foobar22) = 2.4.8
+                python3.9dist(foobar23) = 2.4.8
+                python3.9dist(foobar24) = 2.4.8.1
+                python3.9dist(foobar26) = 2
+                python3.9dist(foobar27) = 2
+                python3.9dist(foobar29) = 2.4.8~b5
+                python3.9dist(foobar30) = 2~b5
+                python3.9dist(foobar31) = 2.4.8^post1
+                python3.9dist(foobar32) = 2^post1
+                (python3.9dist(foobar33) < 2.4.8 or python3.9dist(foobar33) > 2.4.8)
+                (python3.9dist(foobar34) < 2.4.8 or python3.9dist(foobar34) > 2.4.8)
+                (python3.9dist(foobar35) < 2.4.8.1 or python3.9dist(foobar35) > 2.4.8.1)
+                (python3.9dist(foobar36) < 2.4.8 or python3.9dist(foobar36) > 2.4.9)
+                (python3.9dist(foobar37) < 2 or python3.9dist(foobar37) > 2)
+                (python3.9dist(foobar38) < 2 or python3.9dist(foobar38) > 2)
+                (python3.9dist(foobar39) < 2 or python3.9dist(foobar39) > 3)
+                (python3.9dist(foobar4) >= 2 with python3.9dist(foobar4) < 3)
+                (python3.9dist(foobar40) < 2.4.8~b5 or python3.9dist(foobar40) > 2.4.8~b5)
+                (python3.9dist(foobar41) < 2~b5 or python3.9dist(foobar41) > 2~b5)
+                (python3.9dist(foobar42) < 2.4.8^post1 or python3.9dist(foobar42) > 2.4.8^post1)
+                (python3.9dist(foobar43) < 2^post1 or python3.9dist(foobar43) > 2^post1)
+                python3.9dist(foobar44) <= 2.4.8
+                python3.9dist(foobar45) <= 2.4.8
+                python3.9dist(foobar46) <= 2.4.8.1
+                python3.9dist(foobar47) < 2.4.8
+                python3.9dist(foobar48) <= 2
+                python3.9dist(foobar49) <= 2
+                python3.9dist(foobar50) < 2
+                python3.9dist(foobar51) <= 2.4.8~b5
+                python3.9dist(foobar52) <= 2~b5
+                python3.9dist(foobar53) <= 2.4.8^post1
+                python3.9dist(foobar54) <= 2^post1
+                python3.9dist(foobar55) < 2.4.8
+                python3.9dist(foobar56) < 2.4.8
+                python3.9dist(foobar57) < 2.4.8.1
+                python3.9dist(foobar58) < 2.4.8
+                python3.9dist(foobar59) < 2
+                python3.9dist(foobar60) < 2
+                python3.9dist(foobar61) < 2
+                python3.9dist(foobar62) < 2.4.8~b5
+                python3.9dist(foobar63) < 2~b5
+                python3.9dist(foobar64) < 2.4.8^post1
+                python3.9dist(foobar65) < 2^post1
+                python3.9dist(foobar66) >= 2.4.8
+                python3.9dist(foobar67) >= 2.4.8
+                python3.9dist(foobar68) >= 2.4.8.1
+                python3.9dist(foobar69) >= 2.4.8
+                (python3.9dist(foobar7) >= 2.4.8~b5 with python3.9dist(foobar7) < 2.5)
+                python3.9dist(foobar70) >= 2
+                python3.9dist(foobar71) >= 2
+                python3.9dist(foobar72) >= 2
+                python3.9dist(foobar73) >= 2.4.8~b5
+                python3.9dist(foobar74) >= 2~b5
+                python3.9dist(foobar75) >= 2.4.8^post1
+                python3.9dist(foobar76) >= 2^post1
+                python3.9dist(foobar77) > 2.4.8
+                python3.9dist(foobar78) > 2.4.8
+                python3.9dist(foobar79) > 2.4.8.1
+                (python3.9dist(foobar8) >= 2~b5 with python3.9dist(foobar8) < 2.1)
+                python3.9dist(foobar80) >= 2.4.8
+                python3.9dist(foobar81) > 2
+                python3.9dist(foobar82) > 2
+                python3.9dist(foobar83) >= 2
+                python3.9dist(foobar84) > 2.4.8~b5
+                python3.9dist(foobar85) > 2~b5
+                python3.9dist(foobar86) > 2.4.8^post1
+                python3.9dist(foobar87) > 2^post1
+                (python3.9dist(foobar9) >= 2.4.8^post1 with python3.9dist(foobar9) < 2.5)
+                python3.9dist(hugo1) = 1~~dev7
+                python3.9dist(hugo2) <= 8~a4
+                (python3.9dist(hugo3) < 11.1.1~b14 or python3.9dist(hugo3) > 11.1.1~b14)
+                python3.9dist(hugo4) > 11~rc0
+                python3.9dist(hugo5) = 11.1^post3
+                python3.9dist(pyparsing0)
+                ((python3.9dist(pyparsing1) < 2.0.4 or python3.9dist(pyparsing1) > 2.0.4) with (python3.9dist(pyparsing1) < 2.1.2 or python3.9dist(pyparsing1) > 2.1.2) with (python3.9dist(pyparsing1) < 2.1.6 or python3.9dist(pyparsing1) > 2.1.6) with python3.9dist(pyparsing1) >= 2.0.1)
+                python3.9dist(test-multiple-underscores) = 1
+                python3.9dist(test-underscores) = 1
 --requires --normalized-names-format pep503 --require-extras-subpackages --package-name python3-zope-component+missing:
     --provides --majorver-provides --normalized-names-format pep503 --package-name python3-zope-component+missing:
         usr/lib/python3.9/site-packages/zope.component-4.3.0-py3.9.egg-info:
