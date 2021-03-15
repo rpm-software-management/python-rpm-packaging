@@ -762,7 +762,16 @@
                 python3.9dist(simplejson) = 3.16
                 python3dist(simplejson) = 3.16
             requires: python(abi) = 3.9
---requires --normalized-names-format legacy-dots:
+--requires --console-scripts-nodep-setuptools-since 3.7:
+    --provides --console-scripts-nodep-setuptools-since 3.6:
+        usr/lib/python3.9/site-packages/zope.component-4.3.0-py3.9.egg-info:
+            stderr:
+                provides: Only version 3.8+ is supported in --console-scripts-nodep-setuptools-since
+                requires: Only version 3.8+ is supported in --console-scripts-nodep-setuptools-since
+            stdout:
+                provides: '*** PYTHON_EXTRAS_ARGUMENT_ERROR___SEE_STDERR ***'
+                requires: '*** PYTHON_EXTRAS_ARGUMENT_ERROR___SEE_STDERR ***'
+--requires --normalized-names-format legacy-dots --console-scripts-nodep-setuptools-since 3.10:
     --provides --majorver-provides --normalized-names-format legacy-dots:
         usr/lib/python2.7/site-packages/zope.component-4.3.0-py2.7.egg-info:
             provides: |-
@@ -800,16 +809,19 @@
             provides: |-
                 python3.10dist(setuptools) = 41.6
                 python3dist(setuptools) = 41.6
-            requires: |-
-                python(abi) = 3.10
-                python3.10dist(setuptools)
+            requires: python(abi) = 3.10
         usr/lib/python3.11/site-packages/pip-20.0.2-py3.11.egg-info:
             provides: |-
                 python3.11dist(pip) = 20.0.2
                 python3dist(pip) = 20.0.2
+            requires: python(abi) = 3.11
+        usr/lib/python3.8/site-packages/pip-20.0.2-py3.8.egg-info:
+            provides: |-
+                python3.8dist(pip) = 20.0.2
+                python3dist(pip) = 20.0.2
             requires: |-
-                python(abi) = 3.11
-                python3.11dist(setuptools)
+                python(abi) = 3.8
+                python3.8dist(setuptools)
         usr/lib/python3.9/site-packages/zope.component-4.3.0-py3.9.egg-info:
             provides: |-
                 python3.9dist(zope.component) = 4.3

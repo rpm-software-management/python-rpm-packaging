@@ -276,6 +276,12 @@ if __name__ == "__main__":
                         help='Provide both `pep503` and `legacy-dots` format of normalized names (useful for a transition period)')
     parser.add_argument('-L', '--legacy-provides', action='store_true', help='Print extra legacy pythonegg Provides')
     parser.add_argument('-l', '--legacy', action='store_true', help='Print legacy pythonegg Provides/Requires instead')
+    parser.add_argument('--console-scripts-nodep-setuptools-since', action='store',
+                        help='An optional Python version (X.Y), at least 3.8. '
+                             'For that version and any newer version, '
+                             'a dependency on "setuptools" WILL NOT be generated for packages with console_scripts/gui_scripts entry points. '
+                             'By setting this flag, you guarantee that setuptools >= 47.2.0 is used '
+                             'during the build of packages for this and any newer Python version.')
     parser.add_argument('--require-extras-subpackages', action='store_true',
                         help="If there is a dependency on a package with extras functionality, require the extras subpackage")
     parser.add_argument('--package-name', action='store', help="Name of the RPM package that's being inspected. Required for extras requires/provides to work.")
@@ -304,6 +310,15 @@ if __name__ == "__main__":
 
     # At least one type of normalization must be provided
     assert normalized_names_provide_pep503 or normalized_names_provide_legacy
+
+    if args.console_scripts_nodep_setuptools_since:
+        nodep_setuptools_pyversion = parse(args.console_scripts_nodep_setuptools_since)
+        if nodep_setuptools_pyversion < parse("3.8"):
+            print("Only version 3.8+ is supported in --console-scripts-nodep-setuptools-since", file=stderr)
+            print("*** PYTHON_EXTRAS_ARGUMENT_ERROR___SEE_STDERR ***")
+            exit(65)  # os.EX_DATAERR
+    else:
+        nodep_setuptools_pyversion = None
 
     # Is this script being run for an extras subpackage?
     extras_subpackage = None
@@ -439,15 +454,17 @@ if __name__ == "__main__":
                 else:
                     deps = dist.requirements
 
-                # console_scripts/gui_scripts entry points need pkg_resources from setuptools
-                if (dist.entry_points and
-                    (lower.endswith('.egg') or
-                     lower.endswith('.egg-info'))):
-                    groups = {ep.group for ep in dist.entry_points}
-                    if {"console_scripts", "gui_scripts"} & groups:
-                        # stick them first so any more specific requirement
-                        # overrides it
-                        deps.insert(0, Requirement('setuptools'))
+                # console_scripts/gui_scripts entry points needed pkg_resources from setuptools
+                # on new Python/setuptools versions, this is no longer required
+                if nodep_setuptools_pyversion is None or parse(dist.py_version) < nodep_setuptools_pyversion:
+                    if (dist.entry_points and
+                        (lower.endswith('.egg') or
+                         lower.endswith('.egg-info'))):
+                        groups = {ep.group for ep in dist.entry_points}
+                        if {"console_scripts", "gui_scripts"} & groups:
+                            # stick them first so any more specific requirement
+                            # overrides it
+                            deps.insert(0, Requirement('setuptools'))
                 # add requires/recommends based on egg/dist metadata
                 for dep in deps:
                     # Even if we're requiring `foo[bar]`, also require `foo`
