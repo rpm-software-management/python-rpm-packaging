@@ -13,10 +13,10 @@
 
 from __future__ import print_function
 import argparse
-from distutils.sysconfig import get_python_lib
 from os.path import dirname, sep
 import re
-from sys import argv, stdin
+from sys import argv, stdin, version_info
+from sysconfig import get_path
 from warnings import warn
 
 from packaging.requirements import Requirement as Requirement_
@@ -287,8 +287,9 @@ if __name__ == "__main__":
         if py_abi and (lower.endswith('.py') or lower.endswith('.pyc') or lower.endswith('.pyo')):
             if name not in py_deps:
                 py_deps[name] = []
-            purelib = get_python_lib(standard_lib=0, plat_specific=0).split(version[:3])[0]
-            platlib = get_python_lib(standard_lib=0, plat_specific=1).split(version[:3])[0]
+            running_python_version = '{}.{}'.format(*version_info[:2])
+            purelib = get_path('purelib').split(running_python_version)[0]
+            platlib = get_path('platlib').split(running_python_version)[0]
             for lib in (purelib, platlib):
                 if lib in f:
                     spec = ('==', f.split(lib)[1].split(sep)[0])
