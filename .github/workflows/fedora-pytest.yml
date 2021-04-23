@@ -1,0 +1,20 @@
+name: Run pytest with latest Fedora packages
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          dnf install -y python3-devel python3-pip python3-setuptools python3-pytest python3-pyyaml python3-wheel python3-poetry
+      - name: Test with pytest
+        run: |
+          python3 -m pytest -vvv
