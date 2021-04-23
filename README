@@ -7,12 +7,13 @@ Requirements:
 - pip >= 20.0.1
 - setuptools
 - pytest
+- pytest-xdist
 - pyyaml
 - wheel
 - poetry (due to [bug](https://github.com/pypa/pip/issues/9701))
 
 ```
-$ python3 -m pytest -vvv
+$ python3 -m pytest
 ```
 
 Alternatively, run tests with [tox](https://tox.readthedocs.io/).
