@@ -1,0 +1,32 @@
+name: Run tox with various Python versions
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tox_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Cache test data
+        uses: actions/cache@v2
+        with:
+          path: tests/data/scripts_pythondistdeps/usr
+          key: ${{ hashFiles('tests/data/scripts_pythondistdeps/test-requires.yaml') }}
+
+      - name: Run Tox tests
+        uses: fedora-python/tox-github-action@master
+        with:
+          tox_env: ${{ matrix.tox_env }}
+          dnf_install: ${{ matrix.dnf_install }}
+
+    strategy:
+      matrix:
+        tox_env: [py38, py39]
+        include:
+          # Python 3.10 needs to compile cffi
+          - tox_env: py310
+            dnf_install: libffi-devel

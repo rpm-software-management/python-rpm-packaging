@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  fedora_test:
     runs-on: ubuntu-latest
     container:
       image: fedora:latest
