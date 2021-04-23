@@ -12,9 +12,17 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+
+      - name: Cache test data
+        uses: actions/cache@v2
+        with:
+          path: tests/data/scripts_pythondistdeps/usr
+          key: ${{ hashFiles('tests/data/scripts_pythondistdeps/test-requires.yaml') }}
+
       - name: Install dependencies
         run: |
           dnf install -y python3-devel python3-pip python3-setuptools python3-pytest python3-pyyaml python3-wheel python3-poetry
+
       - name: Test with pytest
         run: |
           python3 -m pytest -vvv
