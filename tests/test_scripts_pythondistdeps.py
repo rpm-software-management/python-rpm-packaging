@@ -196,7 +196,12 @@ def check_and_install_test_data():
                                               f"Possible resolution: Specify the package version with"
                                               f" trailing zeros in test-requires.yaml", file=sys.stderr)
 
-                                shutil.move(info_path, install_path)
+                                try:
+                                    # str() needed for Python < 3.9
+                                    shutil.move(str(info_path), str(install_path))
+                                except shutil.Error:
+                                    # when tests run in parallel, this happens
+                                    pass
 
                                 relative_path = install_path.relative_to(TEST_DATA_PATH)
                                 print(f"\nDownloaded metadata to '{relative_path}'" \
