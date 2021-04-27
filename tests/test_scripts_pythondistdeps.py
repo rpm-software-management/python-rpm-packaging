@@ -29,6 +29,7 @@
 
 
 from pathlib import Path
+import fcntl
 import pytest
 import shlex
 import shutil
@@ -217,7 +218,9 @@ def check_and_install_test_data():
 @pytest.fixture(scope="session", autouse=True)
 def fixture_check_and_install_test_data():
     """Wrapper fixture, because a fixture can't be called as a function."""
-    check_and_install_test_data()
+    with open(TEST_DATA_PATH.joinpath('test-requires.yaml.lock'), 'w') as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        check_and_install_test_data()
 
 
 @pytest.mark.parametrize("provides_params, requires_params, dist_egg_info_path, expected",
