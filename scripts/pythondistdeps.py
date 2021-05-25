@@ -260,10 +260,10 @@ def get_marker_env(dist, extra):
             "extra": extra}
 
 
-if __name__ == "__main__":
+def main():
     """To allow this script to be importable (and its classes/functions
-       reused), actions are performed only when run as a main script."""
-
+       reused), actions are defined in the main function and are performed only
+       when run as a main script."""
     parser = argparse.ArgumentParser(prog=argv[0])
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-P', '--provides', action='store_true', help='Print Provides')
@@ -552,3 +552,14 @@ if __name__ == "__main__":
         else:
             # Print out unversioned provides, requires, recommends, conflicts
             print(name)
+
+
+if __name__ == "__main__":
+    """To allow this script to be importable (and its classes/functions
+       reused), actions are performed only when run as a main script."""
+    try:
+        main()
+    except Exception as exc:
+        print("*** PYTHONDISTDEPS_GENERATORS_FAILED ***", flush=True)
+        raise RuntimeError("Error: pythondistdeps.py generator encountered an unhandled exception and was terminated.") from exc
+
