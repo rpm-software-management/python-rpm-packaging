@@ -73,6 +73,14 @@ class Requirement(Requirement_):
 class Distribution(PathDistribution):
     def __init__(self, path):
         super(Distribution, self).__init__(Path(path))
+
+        # Check that the initialization went well and metadata are not missing or corrupted
+        # name is the most important attribute, if it doesn't exist, import failed
+        if not self.name or not isinstance(self.name, str):
+            print("*** PYTHON_METADATA_FAILED_TO_PARSE_ERROR___SEE_STDERR ***")
+            print('Error: Python metadata at `{}` are missing or corrupted.'.format(path), file=stderr)
+            exit(65)  # os.EX_DATAERR
+
         self.normalized_name = normalize_name(self.name)
         self.legacy_normalized_name = legacy_normalize_name(self.name)
         self.requirements = [Requirement(r) for r in self.requires or []]

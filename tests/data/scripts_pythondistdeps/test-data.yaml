@@ -1207,6 +1207,15 @@
                 python3.9dist(zope-testing)
 --requires --normalized-names-format pep503 --require-extras-subpackages:
     --provides --normalized-names-format pep503:
+        corrupted.dist-info:
+            stderr:
+                provides: |-
+                    Error: Python metadata at `*/corrupted.dist-info` are missing or corrupted.
+                requires: |-
+                    Error: Python metadata at `*/corrupted.dist-info` are missing or corrupted.
+            stdout:
+                provides: '*** PYTHON_METADATA_FAILED_TO_PARSE_ERROR___SEE_STDERR ***'
+                requires: '*** PYTHON_METADATA_FAILED_TO_PARSE_ERROR___SEE_STDERR ***'
         pyreq2rpm.tests-2020.04.07.024dab0-py3.9.egg-info:
             provides: python3.9dist(pyreq2rpm-tests) = 2020.04.07.024dab0
             requires: |-

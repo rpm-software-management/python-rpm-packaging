@@ -29,6 +29,7 @@
 
 
 from pathlib import Path
+from fnmatch import fnmatch
 import fcntl
 import pytest
 import shlex
@@ -228,8 +229,21 @@ def fixture_check_and_install_test_data():
 def test_pythondistdeps(provides_params, requires_params, dist_egg_info_path, expected):
     """Runs pythondistdeps with the given parameters and dist-info/egg-info
     path, compares the results with the expected results"""
+
     expect_failure = "stderr" in expected
-    assert expected == run_pythondistdeps(provides_params, requires_params, dist_egg_info_path, expect_failure)
+    tested = run_pythondistdeps(provides_params, requires_params, dist_egg_info_path, expect_failure)
+
+    if expect_failure:
+        for k1, k2 in ((k1, k2) for k1 in expected.keys() for k2 in expected[k1].keys()):
+            if k1 == "stderr":
+                # Some stderr messages contain full file paths. To get around
+                # this, asterisk is used in the test-data and we compare with
+                # fnmatch that understands Unix-style wildcards.
+                assert fnmatch(tested[k1][k2], expected[k1][k2])
+            else:
+                assert expected[k1][k2] == tested[k1][k2]
+    else:
+        assert expected == tested
 
 
 if __name__ == "__main__":
