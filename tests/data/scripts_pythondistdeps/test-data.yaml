@@ -1345,4 +1345,13 @@
                 python3.9dist(zope-component[security])
                 python3.9dist(zope-component[zcml])
                 python3.9dist(zope-testing)
+--requires --normalized-names-format pep503 --require-extras-subpackages --package-name python3-build+virtualenv:
+    --provides --majorver-provides --normalized-names-format pep503 --package-name python3-build+virtualenv:
+        usr/lib/python3.10/site-packages/build-0.8.0.dist-info:
+            provides: |-
+                python3.10dist(build[virtualenv]) = 0.8
+                python3dist(build[virtualenv]) = 0.8
+            requires: |-
+                python(abi) = 3.10
+                python3.10dist(virtualenv) >= 20.0.35
 

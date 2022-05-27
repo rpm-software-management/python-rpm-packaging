@@ -112,10 +112,17 @@ class Distribution(PathDistribution):
 
     def requirements_for_extra(self, extra):
         extra_deps = []
+        # we are only interested in dependencies with extra == 'our_extra' marker
         for req in self.requirements:
+            # no marker at all, nothing to evaluate
             if not req.marker:
                 continue
-            if req.marker.evaluate(get_marker_env(self, extra)):
+            # does the marker include extra == 'our_extra'?
+            # we can only evaluate the marker as a whole,
+            # so we evaluate it twice (using 2 different marker_envs)
+            # and see if it only evaluates to True with our extra
+            if (req.marker.evaluate(get_marker_env(self, extra)) and
+                    not req.marker.evaluate(get_marker_env(self, None))):
                 extra_deps.append(req)
         return extra_deps
 
